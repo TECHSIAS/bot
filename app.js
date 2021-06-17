@@ -2,6 +2,24 @@ require('dotenv').config()
 
 const Discord = require('discord.js')
 const dude= new Discord.Client()
+
+const {MessageButton} = require('discord-buttons')
+require('discord.js-buttons')(dude);
+
+const Gender = new Discord.MessageEmbed()
+    .setTitle("Select Your Gender")
+    .setColor("black")
+
+const male = new MessageButton()
+    .setStyle("red")
+    .setLabel('Male')
+    .setID("gender-male")
+
+const female = new MessageButton()
+    .setStyle("red")
+    .setLabel('Female')
+    .setID('gender-female')
+
 //const MongoClient = require('mongodb').MongoClient 
 // const db_name=process.env.MONGO_DBNAME
 // const mongoUri = "mongodb+srv://"+process.env.MONGO_USERNAME+":"+process.env.MONGO_PASSWORD+"@"+process.env.MONGO_CLUSTER+"/"+db_name
@@ -15,8 +33,12 @@ const dude= new Discord.Client()
 //     }
 // })
 
-dude.on('guildMemberAdd',async(guildMember)=>{
-    const role = 4
+dude.on('guildMemberAdd',async(guildMember)=>{    
+    let role = 1;
+    guildMember.send({
+        buttons: [male, female],
+        embed: Gender
+    })
     if(role==0){
         guildMember.send('type register to complete registration')
     }else if(role==1){
@@ -34,6 +56,18 @@ dude.on('guildMemberAdd',async(guildMember)=>{
     }
 })
 
+//837630620477423616
+//.clicker.user.id
+dude.on('clickButton',async(button)=>{
+    console.log(button.clicker.user.id)
+    if (button.id == 'gender-female') {
+        console.log("female")
+    }else if(button.id=='gender-male'){
+        console.log("male")
+    }
+    button.message.delete(Gender)
+})
+
 dude.on('guildMemberRemove',async(guildMember)=>{
     console.log('left')
 })
@@ -44,6 +78,10 @@ dude.on('message',async(message)=>{
     const commands = message.content.split(' ')
     if(!message.author.bot){
         if(message.channel.type=='dm'){
+            message.reply({
+                buttons: [male, female],
+                embed: Gender
+            })
             if(commands[0].toLowerCase()=='register'){
                 addUser(userId,message.content.substring(9))
             }
