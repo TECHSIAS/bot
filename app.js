@@ -90,31 +90,31 @@ dude.on('guildMemberAdd',async(guildMember)=>{
     if (textString3.length >= 14) {
         ctx.font = 'bold 100px "Roboto"';
         ctx.fillStyle = '#f2f2f2';
-        ctx.fillText(textString3, 620, canvas.height / 2 + 10);
+        ctx.fillText(textString3, 640, canvas.height / 2 + 30);
     }else {
         ctx.font = 'bold 130px "Roboto"';
         ctx.fillStyle = '#f2f2f2';
-        ctx.fillText(textString3, 620, canvas.height / 2 + 15);
+        ctx.fillText(textString3, 640, canvas.height / 2 + 30);
     }
     var textString4 = `Welcome to TECHSIAS`;
-    ctx.font = 'bold 60px "Roboto"';
+    ctx.font = 'bold 70px "Roboto"';
     ctx.fillStyle = '#bb86fc';
-    ctx.fillText(textString4, 560, canvas.height / 2 - 150);
+    ctx.fillText(textString4, 620, canvas.height / 2 - 140);
     var textString4 = `Member #${guildMember.guild.memberCount}`;
     ctx.font = 'bold 60px "Roboto"';
     ctx.fillStyle = '#bb86fc';
     ctx.fillText(textString4, 650, canvas.height / 2 + 145);
     ctx.beginPath();
-    ctx.arc(315, canvas.height / 2, 250, 0, Math.PI * 2, true);//position of img
+    ctx.arc(345, canvas.height / 2, 257, 0, Math.PI * 2, true);//position of img
     ctx.closePath();
     ctx.clip();
     const avatar = await Canvas.loadImage(guildMember.user.displayAvatarURL({ format: 'png' }));
-    ctx.drawImage(avatar, 65, canvas.height / 2 - 250, 500, 500);
+    ctx.drawImage(avatar, 90, canvas.height / 2 - 255, 515, 515);
     const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'welcome-image.png');
     const welcomeMessage = new Discord.MessageEmbed()
         .setColor("#4dff7a")
         .setTitle(`**Welcome to TECHSIAS**`)
-        .setDescription(`Hi <@${guildMember.id}>!\nCheck your inbox!`)
+        .setDescription(`Hi <@${guildMember.id}>\n Msg me **HELP** to see how to Register :white_check_mark:`)
         .setImage("attachment://welcome-image.png")
         .attachFiles(attachment);
 
